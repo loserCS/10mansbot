@@ -15,7 +15,7 @@ class Map:
         self.image_url = image_url
 
 
-BASE_URL = 'https://raw.githubusercontent.com/cameronshinn/csgo-queue-bot/master/assets/maps/images/'
+BASE_URL = 'https://github.com/loserCS/10mansbot/tree/main/assets/maps/images'
 
 de_cache = Map('Cache', 'de_cache', '<:de_cache:784221659401551898>',
                f'{BASE_URL}cache.jpg')
@@ -36,7 +36,7 @@ de_train = Map('Train', 'de_train', '<:de_train:784221659451752449>',
 de_vertigo = Map('Vertigo', 'de_vertigo', '<:de_vertigo:784221659221065760>',
                  f'{BASE_URL}vertigo.jpg')
 de_ancient = Map('Ancient', 'de_ancient', '<:de_ancient:845404635711275029>',
-                 f'https://static.wikia.nocookie.net/cswikia/images/9/94/De_ancient.png')
+                 f'{BASE_URL}ancient.jpg')
 
 ALL_MAPS = [
     de_cache,

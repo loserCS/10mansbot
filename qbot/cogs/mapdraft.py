@@ -15,7 +15,7 @@ class Map:
         self.image_url = image_url
 
 
-BASE_URL = 'https://github.com/loserCS/10mansbot/tree/main/assets/maps/images'
+BASE_URL = 'https://raw.githubusercontent.com/loserCS/10mansbot/main/assets/maps/images/'
 
 de_cache = Map('Cache', 'de_cache', '<:de_cache:784221659401551898>',
                f'{BASE_URL}cache.jpg')

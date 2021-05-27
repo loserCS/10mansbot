@@ -48,7 +48,11 @@ class ReminderCog(commands.Cog):
             await ctx.send("Don't mention anyone in your reminder")
             return
 
-        if '@everyone' or '@here' in ctx.message.content:
+        elif '@everyone' in reminder:
+            await ctx.send("Don't mention anyone in your reminder")
+            return
+
+        elif '@here' in reminder:
             await ctx.send("Don't mention anyone in your reminder")
             return
 

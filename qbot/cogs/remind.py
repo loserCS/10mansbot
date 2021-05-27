@@ -40,8 +40,8 @@ class ReminderCog(commands.Cog):
             await ctx.send("Time is below minimum duration.\nMinimum duration is 1 Second")
             return
 
-        if converted_time > 7776000:
-            await ctx.send("Time exceeds maximum duration.\nMaximum duration is 90 days")
+        if converted_time > 86400:
+            await ctx.send("Time exceeds maximum duration.\nMaximum duration is 24 Hours")
             return
 
         if reminder:

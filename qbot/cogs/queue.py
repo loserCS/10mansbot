@@ -283,7 +283,7 @@ class QueueCog(commands.Cog):
 
         return ', '.join(unit_strings)
 
-    @commands.command(usage='ban <user mention> ... [<days>d] [<hours>h] [<minutes>m]',
+    @commands.command(usage='ban <user mention>',
                       brief='Ban all mentioned users from joining the queue (need server ban perms)')
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, *args):

@@ -9,7 +9,7 @@ class ReminderCog(commands.Cog):
         self.bot = bot
 
     @commands.command(case_insensitive = True, aliases = ["remind", "remindme", "remind_me"])
-    async def reminder(self, ctx, time, *, reminder):
+    async def reminder(self, ctx, time, *, reminder=None):
         def convert(time):
             pos = ['s', 'm', 'h', 'd']
 
@@ -29,14 +29,23 @@ class ReminderCog(commands.Cog):
         converted_time = convert(time)
 
         if converted_time == -1:
-            await ctx.send('You didnt enter the time correctly')
+            await ctx.send('You didnt enter the time correctly (only s, m, h, d are allowed)')
             return
         
         if converted_time == -2:
             await ctx.send("Time must be an integer")
             return
 
-        await ctx.send(f"Set reminder for **{reminder}** and will ping you in {time}")
+        
+        if converted_time > 7776000:
+            await ctx.send("Time exceeds maximum duration.\nMaximum duration is 90 days")
+            return
+
+        if reminder:
+            await ctx.send(f"Set reminder for **{reminder}** and will ping you in {time}")
+        else:
+            reminder = " `No message` "
+            await ctx.send(f"Set reminder for **{reminder}** and will ping you in {time}.")
 
         await asyncio.sleep(converted_time)
         await ctx.send(f"{ctx.author.mention} Reminder: {reminder}!")

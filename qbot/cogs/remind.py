@@ -33,10 +33,13 @@ class ReminderCog(commands.Cog):
             return
         
         if converted_time == -2:
-            await ctx.send("Time must be an integer")
+            await ctx.send("Time must be an integer.")
             return
 
-        
+        if converted_time < 1:
+            await ctx.send("Time is below minimum duration.\nMinimum duration is 1 Second")
+            return
+
         if converted_time > 7776000:
             await ctx.send("Time exceeds maximum duration.\nMaximum duration is 90 days")
             return

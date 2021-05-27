@@ -43,6 +43,18 @@ class ReminderCog(commands.Cog):
         if converted_time > 86400:
             await ctx.send("Time exceeds maximum duration.\nMaximum duration is 24 Hours")
             return
+        
+        if ctx.message.mentions:
+            await ctx.send("Don't mention anyone in your reminder")
+            return
+
+        if '@everyone' or '@here' in ctx.message.content:
+            await ctx.send("Don't mention anyone in your reminder")
+            return
+
+        if ctx.message.role_mentions:
+            await ctx.send("Don't mention anyone in your reminder")
+            return
 
         if reminder:
             await ctx.send(f"Set reminder for **{reminder}** and will ping you in {time}")

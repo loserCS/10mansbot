@@ -18,10 +18,10 @@ EMOJI_LIST = [u'\u0031\u20E3',
 class TeamDraftCog(commands.Cog):
     """ Handles the player drafter command. """
 
-    def __init__(self, bot, color):
+    def __init__(self, bot):
         """ Set attributes and initialize empty draft teams. """
         self.bot = bot
-        self.color = color
+        self.color = self.bot.color_list[3]
         self.guild_player_pool = {}  # Players participating in the draft for each guild
         self.guild_teams = {}  # Teams for each guild
         self.guild_msgs = {}  # Last team draft embed message sent for each guild
@@ -154,3 +154,6 @@ class TeamDraftCog(commands.Cog):
 
         embed = self.player_draft_embed(title, guild)
         await self.guild_msgs[guild].edit(embed=embed)
+
+def setup(bot):
+    bot.add_cog(TeamDraftCog(bot))

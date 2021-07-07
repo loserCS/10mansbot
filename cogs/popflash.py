@@ -9,10 +9,10 @@ POPFLASH_BASE = 'https://popflash.site/scrim/'
 class PopflashCog(commands.Cog):
     """ Cog to manage interactions with PopFlash. """
 
-    def __init__(self, bot, color):
+    def __init__(self, bot):
         """ Set attributes. """
         self.bot = bot
-        self.color = color
+        self.color = self.bot.color_list[3]
         self.popflash_base = POPFLASH_BASE
 
     def get_popflash_url(self, guild):
@@ -30,3 +30,6 @@ class PopflashCog(commands.Cog):
         description = f'[Link here]({self.get_popflash_url(ctx.guild)})'
         embed = discord.Embed(title="PopFlash lobby is up!", description=description, color=self.color)
         await ctx.send(embed=embed)
+
+def setup(bot):
+    bot.add_cog(PopflashCog(bot))

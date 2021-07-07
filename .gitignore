@@ -3,3 +3,5 @@ __pycache__/
 /run.py
 .vscode/**
 /guild_data.json
+.bot_config/**
+bot_config/secrets.json

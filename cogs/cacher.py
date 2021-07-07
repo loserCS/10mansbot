@@ -1,4 +1,4 @@
-# cacher.py
+#   cacher.py
 
 from . import mapdraft
 import discord
@@ -11,9 +11,9 @@ import datetime
 
 class CacherCog(commands.Cog):
     """ Cog to handle the caching of guild data. """
-    def __init__(self, bot, guild_data_file):
+    def __init__(self, bot):
         self.bot = bot
-        self.guild_data_file = guild_data_file
+        #self.guild_data_file = guild_data_file
 
     @staticmethod
     def timestamp():
@@ -22,24 +22,24 @@ class CacherCog(commands.Cog):
 
     
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        """ Load guild data and start saving task. """
-        # Wait for all other discord on_ready event handlers to finish
-        tasks = [t for t in asyncio.Task.all_tasks() if type(t) is discord.client._ClientEventTask]
-        tasks.remove(asyncio.Task.current_task())
-        await asyncio.wait(tasks)
-        
-
-        # Load guild data
-        print('Loading guild data...')
-        self.load()
-        print('Loaded guild data')
-
-        
-        # Start periodic save if it hasn't already begun
-        if self.periodic_save.current_loop == 0:
-            self.periodic_save.start()
+    #@commands.Cog.listener()
+    #async def on_ready(self):
+    #    """ Load guild data and start saving task. """
+    #    # Wait for all other discord on_ready event handlers to finish
+    #    tasks = [t for t in asyncio.Task.all_tasks() if type(t) is discord.client._ClientEventTask]
+    #    tasks.remove(asyncio.Task.current_task())
+    #    await asyncio.wait(tasks)
+    #    
+#
+    #    # Load guild data
+    #    print('Loading guild data...')
+    #    self.load()
+    #    print('Loaded guild data')
+#
+    #    
+    #    # Start periodic save if it hasn't already begun
+    #    if self.periodic_save.current_loop == 0:
+    #        self.periodic_save.start()
 
     def save(self):
         """ Save guild data to JSON. """
@@ -121,15 +121,18 @@ class CacherCog(commands.Cog):
         
         
 
-    @tasks.loop(minutes=10)
-    async def periodic_save(self):
-        """ Save guild data periodically. """
-        self.save()
-        print(f'{self.timestamp()} Saved guild data')
+    #@tasks.loop(minutes=10)
+    #async def periodic_save(self):
+    #    """ Save guild data periodically. """
+    #    self.save()
+    #    print(f'{self.timestamp()} Saved guild data')
 
     @commands.Cog.listener()
     async def on_disconenct(self):
         """ Save guild data on disconnect to be reloaded when ready. """
         self.save()
         print(f'{self.timestamp()} Saved guild data')
+
+def setup(bot):
+    bot.add_cog(CacherCog(bot))
 

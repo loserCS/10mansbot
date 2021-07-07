@@ -2,7 +2,7 @@
 
 from .cacher import CacherCog
 from .console import ConsoleCog
-from .dbl import DblCog
+#from .dbl import DblCog
 from .donate import DonateCog
 from .help import HelpCog
 from .mapdraft import MapDraftCog
@@ -14,7 +14,7 @@ from .remind import ReminderCog
 __all__ = [
     CacherCog,
     ConsoleCog,
-    DblCog,
+    #DblCog,
     DonateCog,
     HelpCog,
     MapDraftCog,

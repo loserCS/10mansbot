@@ -76,10 +76,10 @@ class MapDraftCog(commands.Cog):
 
     footer = 'React to any of the map icons below to ban the corresponding map'
 
-    def __init__(self, bot, color):
+    def __init__(self, bot):
         """ Set attributes. """
         self.bot = bot
-        self.color = color
+        self.color = self.bot.color_list[3]
         self.guild_mdraft_data = {}  # Map guild -> guild map draft data
 
     @commands.Cog.listener()
@@ -88,6 +88,9 @@ class MapDraftCog(commands.Cog):
         for guild in self.bot.guilds:
             if guild not in self.guild_mdraft_data:  # Don't add if guild already loaded
                 self.guild_mdraft_data[guild] = MDraftData()
+
+
+        print(f"{self.__class__.__name__} Cog has been loaded\n-----")
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
@@ -226,3 +229,6 @@ class MapDraftCog(commands.Cog):
             title = f'Cannot set the map pool without {missing_perm} permission!'
             embed = discord.Embed(title=title, color=self.color)
             await ctx.send(embed=embed)
+
+def setup(bot):
+    bot.add_cog(MapDraftCog(bot))

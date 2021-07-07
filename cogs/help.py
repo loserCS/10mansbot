@@ -1,20 +1,17 @@
-# help.py
-
 import discord
 from discord.ext import commands
 import Levenshtein as lev
-
 GITHUB = 'https://github.com/loserCS/10mansbot'  # TODO: Use git API to get link to repo?
 
 
 class HelpCog(commands.Cog):
     """ Handles everything related to the help menu. """
 
-    def __init__(self, bot, color):
+    def __init__(self, bot):
         """ Set attributes and remove default help command. """
         self.bot = bot
-        self.color = color
-        self.logo = 'https://raw.githubusercontent.com/loserCS/10mansbot/main/assets/logo/rounded-logo.png'
+        self.color = self.bot.color_list[3]
+        #self.logo = 'https://raw.githubusercontent.com/'
         self.bot.remove_command('help')
 
     def help_embed(self, title):
@@ -37,8 +34,9 @@ class HelpCog(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         """ Set presence to let users know the help command. """
-        activity = discord.Activity(type=discord.ActivityType.watching, name="noobs type q!help")
+        activity = discord.Activity(type=discord.ActivityType.watching, name="for q!help")
         await self.bot.change_presence(activity=activity)
+        print(f"{self.__class__.__name__} Cog has been loaded\n-----")
 
     async def cog_before_invoke(self, ctx):
         """ Trigger typing at the start of every command. """
@@ -74,22 +72,16 @@ class HelpCog(commands.Cog):
         embed = self.help_embed('__Queue Bot Commands__')
         await ctx.send(embed=embed)
 
-    #@commands.Cog.listener()
-    #async def on_message(self, message):
-    #    """ Send the help embed if the bot is mentioned. """
-    #    if self.bot.user in message.mentions:
-    #        await message.channel.send(embed=self.help_embed('__Queue Bot Commands__'))
-#
     @commands.command(brief='Display basic info about this bot')
     async def info(self, ctx):
         """ Display the info embed. """
-        description = '_The definitive bot for setting up 10-man lobbies_\n'
-        dbl_cog = self.bot.get_cog('DblCog')
+        description = '_Bot used for among us queues_\n'
 
-        if dbl_cog:
-            description += f'\nBe sure to upvote the bot on [top.gg]({dbl_cog.topgg_url})'
 
         description += f'\nSource code can be found [here]({GITHUB}) on GitHub'
-        embed = discord.Embed(title='__10-Man Queue Bot__', description=description, color=self.color)
-        embed.set_thumbnail(url=self.logo)
+        embed = discord.Embed(title='__Among Us Queue Bot__', description=description, color=self.color)
+        embed.set_thumbnail(url=self.bot.user.avatar_url)
         await ctx.send(embed=embed)
+
+def setup(bot):
+    bot.add_cog(HelpCog(bot))
